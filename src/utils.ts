@@ -1,4 +1,4 @@
-import { Position, TetrisPiece, GameState } from './types';
+import { Position, TetrisPiece } from './types';
 import { BOARD_WIDTH, BOARD_HEIGHT, TETRIS_PIECES, PIECE_NAMES } from './constants';
 
 export const createEmptyBoard = (): string[][] => {

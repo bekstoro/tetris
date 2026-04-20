@@ -1,5 +1,5 @@
 import React from 'react';
-import { GameState, TetrisPiece } from '../types';
+import { GameState } from '../types';
 import { CELL_SIZE } from '../constants';
 import './GameBoard.css';
 
