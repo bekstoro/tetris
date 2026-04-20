@@ -119,6 +119,8 @@ const App: React.FC = () => {
 
         <div className="gameboy-logo">GAME BOY<span>™</span></div>
       </div>
+
+      <a className="back-link" href="https://bekstoro.com">← bekstoro.com</a>
     </div>
   );
 };

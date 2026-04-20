@@ -17,9 +17,25 @@ body {
 .app {
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 32px 16px;
+  gap: 16px;
+}
+
+@media (max-width: 500px) {
+  .gameboy-body {
+    transform: scale(0.78);
+    transform-origin: top center;
+  }
+}
+
+@media (max-width: 380px) {
+  .gameboy-body {
+    transform: scale(0.65);
+    transform-origin: top center;
+  }
 }
 
 /* ── Game Boy body ─────────────────────────────────────── */
@@ -366,4 +382,17 @@ body {
 .gameboy-logo span {
   font-size: 7px;
   vertical-align: super;
+}
+
+.back-link {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+  color: #9bbc0f;
+  text-decoration: none;
+  text-shadow: 0 0 8px rgba(155, 188, 15, 0.6);
+  transition: color 0.2s;
+}
+
+.back-link:hover {
+  color: #fff;
 }
