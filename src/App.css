@@ -389,10 +389,14 @@ body {
   font-size: 9px;
   color: #9bbc0f;
   text-decoration: none;
-  text-shadow: 0 0 8px rgba(155, 188, 15, 0.6);
-  transition: color 0.2s;
+  background: rgba(0, 0, 0, 0.75);
+  border: 1px solid #9bbc0f;
+  padding: 8px 14px;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
 }
 
 .back-link:hover {
+  background: rgba(0, 0, 0, 0.95);
   color: #fff;
 }
