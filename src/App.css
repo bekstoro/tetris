@@ -6,7 +6,8 @@
 
 body {
   font-family: 'Press Start 2P', monospace;
-  background: #1a1a2e;
+  background: url('/bg.jpg') repeat;
+  background-size: 400px;
   min-height: 100vh;
   display: flex;
   justify-content: center;
