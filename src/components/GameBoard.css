@@ -1,0 +1,28 @@
+.game-board {
+  position: relative;
+  width: 240px;
+  height: 480px;
+  background-color: #9bbc0f;
+  border-right: 2px solid #306230;
+  flex-shrink: 0;
+}
+
+.cell {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  box-sizing: border-box;
+}
+
+.cell.empty {
+  background-color: #9bbc0f;
+  border: 1px solid #8bac0f;
+}
+
+.cell.filled {
+  background-color: #0f380f !important;
+  border: 1px solid #306230;
+  box-shadow:
+    inset 3px 3px 0 #1a5c1a,
+    inset -3px -3px 0 #040c04;
+}

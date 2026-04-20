@@ -1,0 +1,35 @@
+.next-piece {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.next-piece-label {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  color: #306230;
+  background: #8bac0f;
+  border: 2px solid #306230;
+  border-bottom: none;
+  padding: 4px 6px;
+}
+
+.next-piece-container {
+  position: relative;
+  width: 96px;
+  height: 72px;
+  background: #8bac0f;
+  border: 2px solid #306230;
+}
+
+.piece-cell {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background-color: #0f380f !important;
+  border: 1px solid #306230;
+  box-sizing: border-box;
+  box-shadow:
+    inset 2px 2px 0 #1a5c1a,
+    inset -2px -2px 0 #040c04;
+}
