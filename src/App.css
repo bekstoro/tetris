@@ -218,40 +218,41 @@ body {
 }
 
 .dpad {
-  position: relative;
-  width: 76px;
-  height: 76px;
+  display: grid;
+  grid-template-columns: repeat(3, 26px);
+  grid-template-rows: repeat(3, 26px);
   margin: 0 auto;
+  width: 78px;
+  height: 78px;
 }
 
-.dpad-h,
-.dpad-v {
-  position: absolute;
+.dpad-btn {
   background: linear-gradient(180deg, #484840 0%, #303028 50%, #484840 100%);
-  border-radius: 3px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  border: none;
+  color: #8a8a78;
+  font-size: 9px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 0 #1a1a14;
+  transition: transform 0.07s, box-shadow 0.07s;
 }
 
-.dpad-h {
-  width: 100%;
-  height: 33.3%;
-  top: 33.3%;
+.dpad-btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 0 0 #1a1a14;
 }
 
-.dpad-v {
-  width: 33.3%;
-  height: 100%;
-  left: 33.3%;
-}
+.dpad-up    { grid-column: 2; grid-row: 1; border-radius: 4px 4px 0 0; }
+.dpad-left  { grid-column: 1; grid-row: 2; border-radius: 4px 0 0 4px; }
+.dpad-right { grid-column: 3; grid-row: 2; border-radius: 0 4px 4px 0; }
+.dpad-down  { grid-column: 2; grid-row: 3; border-radius: 0 0 4px 4px; }
 
 .dpad-center {
-  position: absolute;
-  width: 33.3%;
-  height: 33.3%;
-  top: 33.3%;
-  left: 33.3%;
-  background: #383830;
-  z-index: 1;
+  grid-column: 2;
+  grid-row: 2;
+  background: #303028;
 }
 
 /* SELECT / START */
@@ -319,12 +320,12 @@ body {
   height: 38px;
   border-radius: 50%;
   background: linear-gradient(145deg, #c03050 0%, #902040 100%);
-  border: 2px solid #601030;
+  border: none;
   box-shadow:
-    0 4px 0 #601030,
-    0 6px 8px rgba(0, 0, 0, 0.4);
+    0 5px 0 #601030,
+    0 7px 10px rgba(0, 0, 0, 0.4);
   cursor: pointer;
-  transition: transform 0.08s, box-shadow 0.08s;
+  transition: transform 0.07s, box-shadow 0.07s;
 }
 
 .ab-btn:hover {
@@ -332,8 +333,8 @@ body {
 }
 
 .ab-btn:active {
-  transform: translateY(3px);
-  box-shadow: 0 1px 0 #601030, 0 2px 4px rgba(0, 0, 0, 0.4);
+  transform: translateY(5px);
+  box-shadow: 0 0 0 #601030, 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* ── Speaker grille ───────────────────────────────────── */

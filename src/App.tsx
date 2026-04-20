@@ -83,9 +83,11 @@ const App: React.FC = () => {
         <div className="gameboy-controls">
           <div className="controls-left">
             <div className="dpad">
-              <div className="dpad-h"></div>
-              <div className="dpad-v"></div>
+              <button className="dpad-btn dpad-up"    onClick={rotateCurrentPiece}>▲</button>
+              <button className="dpad-btn dpad-left"  onClick={() => movePiece('left')}>◀</button>
               <div className="dpad-center"></div>
+              <button className="dpad-btn dpad-right" onClick={() => movePiece('right')}>▶</button>
+              <button className="dpad-btn dpad-down"  onClick={() => movePiece('down')}>▼</button>
             </div>
           </div>
 
