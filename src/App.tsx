@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useTetris } from './hooks/useTetris';
 import GameBoard from './components/GameBoard';
 import NextPiece from './components/NextPiece';
@@ -15,28 +15,56 @@ const App: React.FC = () => {
     pauseGame,
   } = useTetris();
 
+  const [pressed, setPressed] = useState<Set<string>>(new Set());
+
+  const addPressed = useCallback((key: string) => {
+    setPressed(prev => new Set(prev).add(key));
+  }, []);
+
+  const removePressed = useCallback((key: string) => {
+    setPressed(prev => { const s = new Set(prev); s.delete(key); return s; });
+  }, []);
+
   useEffect(() => {
-    const handleKeyPress = (event: KeyboardEvent) => {
+    const handleKeyDown = (event: KeyboardEvent) => {
       if (gameState.gameOver && event.code !== 'KeyR') return;
       switch (event.code) {
-        case 'ArrowLeft':  event.preventDefault(); movePiece('left'); break;
-        case 'ArrowRight': event.preventDefault(); movePiece('right'); break;
-        case 'ArrowDown':  event.preventDefault(); movePiece('down'); break;
-        case 'ArrowUp':    event.preventDefault(); rotateCurrentPiece(); break;
-        case 'Space':      event.preventDefault(); dropPiece(); break;
-        case 'KeyP':       event.preventDefault(); pauseGame(); break;
-        case 'KeyR':       event.preventDefault(); resetGame(); break;
+        case 'ArrowLeft':  event.preventDefault(); movePiece('left');       addPressed('left');   break;
+        case 'ArrowRight': event.preventDefault(); movePiece('right');      addPressed('right');  break;
+        case 'ArrowDown':  event.preventDefault(); movePiece('down');       addPressed('down');   break;
+        case 'ArrowUp':    event.preventDefault(); rotateCurrentPiece();    addPressed('up');     break;
+        case 'Space':      event.preventDefault(); dropPiece();             addPressed('a');      break;
+        case 'KeyP':       event.preventDefault(); pauseGame();             addPressed('select'); break;
+        case 'KeyR':       event.preventDefault(); resetGame();             addPressed('start');  break;
       }
     };
-    window.addEventListener('keydown', handleKeyPress);
-    return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [movePiece, rotateCurrentPiece, dropPiece, pauseGame, resetGame, gameState.gameOver]);
+
+    const handleKeyUp = (event: KeyboardEvent) => {
+      switch (event.code) {
+        case 'ArrowLeft':  removePressed('left');   break;
+        case 'ArrowRight': removePressed('right');  break;
+        case 'ArrowDown':  removePressed('down');   break;
+        case 'ArrowUp':    removePressed('up');     break;
+        case 'Space':      removePressed('a');      break;
+        case 'KeyP':       removePressed('select'); break;
+        case 'KeyR':       removePressed('start');  break;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keyup', handleKeyUp);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keyup', handleKeyUp);
+    };
+  }, [movePiece, rotateCurrentPiece, dropPiece, pauseGame, resetGame, gameState.gameOver, addPressed, removePressed]);
+
+  const p = (key: string) => pressed.has(key) ? 'pressed' : '';
 
   return (
     <div className="app">
       <div className="gameboy-body">
 
-        {/* Top header strip */}
         <div className="gameboy-header">
           <div className="gameboy-brand">Nintendo</div>
           <div className="gameboy-battery">
@@ -45,7 +73,6 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        {/* Screen housing */}
         <div className="gameboy-screen-housing">
           <div className="screen-label">DOT MATRIX WITH STEREO SOUND</div>
           <div className="screen-stripe"></div>
@@ -79,21 +106,20 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        {/* Controls row */}
         <div className="gameboy-controls">
           <div className="controls-left">
             <div className="dpad">
-              <button className="dpad-btn dpad-up"    onClick={rotateCurrentPiece}>▲</button>
-              <button className="dpad-btn dpad-left"  onClick={() => movePiece('left')}>◀</button>
+              <button className={`dpad-btn dpad-up ${p('up')}`}    onClick={rotateCurrentPiece}>▲</button>
+              <button className={`dpad-btn dpad-left ${p('left')}`}  onClick={() => movePiece('left')}>◀</button>
               <div className="dpad-center"></div>
-              <button className="dpad-btn dpad-right" onClick={() => movePiece('right')}>▶</button>
-              <button className="dpad-btn dpad-down"  onClick={() => movePiece('down')}>▼</button>
+              <button className={`dpad-btn dpad-right ${p('right')}`} onClick={() => movePiece('right')}>▶</button>
+              <button className={`dpad-btn dpad-down ${p('down')}`}  onClick={() => movePiece('down')}>▼</button>
             </div>
           </div>
 
           <div className="controls-center">
-            <button className="meta-btn" onClick={pauseGame}>SELECT</button>
-            <button className="meta-btn" onClick={resetGame}>START</button>
+            <button className={`meta-btn ${p('select')}`} onClick={pauseGame}>SELECT</button>
+            <button className={`meta-btn ${p('start')}`}  onClick={resetGame}>START</button>
           </div>
 
           <div className="controls-right">
@@ -104,13 +130,12 @@ const App: React.FC = () => {
               </div>
               <div className="ab-btn-row">
                 <button className="ab-btn" onClick={pauseGame}></button>
-                <button className="ab-btn" onClick={resetGame}></button>
+                <button className={`ab-btn ${p('a')}`} onClick={resetGame}></button>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Speaker grille */}
         <div className="gameboy-speaker">
           {Array.from({ length: 6 }, (_, i) => (
             <div key={i} className="speaker-hole"></div>
