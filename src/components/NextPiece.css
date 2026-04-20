@@ -1,25 +1,21 @@
 .next-piece {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  border: 2px solid #306230;
+  background: #8bac0f;
 }
 
 .next-piece-label {
   font-family: 'Press Start 2P', monospace;
   font-size: 7px;
   color: #306230;
-  background: #8bac0f;
-  border: 2px solid #306230;
-  border-bottom: none;
   padding: 4px 6px;
+  border-bottom: 2px solid #306230;
+  display: block;
 }
 
 .next-piece-container {
   position: relative;
-  width: 96px;
+  width: 100%;
   height: 72px;
-  background: #8bac0f;
-  border: 2px solid #306230;
 }
 
 .piece-cell {
